@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
         }
 
         //use the client for executing the query
-        client.query('SELECT $1::int AS number', ['1'], function (err, result) {
+        client.query('SELECT * FROM employee WHERE name=$1 LIMIT 1', ["James"], function (err, result) {
             //call `done(err)` to release the client back to the pool (or destroy it if there is an error)
             done(err);
 
@@ -24,7 +24,7 @@ app.get('/', function (req, res) {
                 return console.error('error running query', err);
             }
 
-            res.send(`hello from the internet also here is a result: ${result.rows[0].number}`);
+            res.send(`Employee ID: ${result.rows[0].id}, Name: ${result.rows[0].name}, Age: ${result.rows[0].age}`);
         });
     });
 });
@@ -33,5 +33,4 @@ app.get('/', function (req, res) {
 var port = process.env.PORT || 5000;
 server = app.listen(port, function () {
     console.log('Server listening on port %d in %s mode', server.address().port, app.settings.env);
-
 });
