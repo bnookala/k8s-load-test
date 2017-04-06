@@ -13,6 +13,7 @@ app.get('/', function (req, res) {
     pool.connect(function (err, client, done) {
         if (err) {
             return console.error('error fetching client from pool', err);
+            res.send(500).end();
         }
 
         //use the client for executing the query
@@ -22,6 +23,7 @@ app.get('/', function (req, res) {
 
             if (err) {
                 return console.error('error running query', err);
+                res.send(500).end();
             }
 
             res.send(`Employee ID: ${result.rows[0].id}, Name: ${result.rows[0].name}, Age: ${result.rows[0].age}`);
