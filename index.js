@@ -17,7 +17,8 @@ app.get('/', function (req, res) {
         }
 
         //use the client for executing the query
-        client.query('SELECT * FROM employee WHERE name=$1 LIMIT 1', ["James"], function (err, result) {
+        let id = Math.floor(Math.random() * 1000000)
+        client.query('SELECT * FROM employee WHERE id=$1 LIMIT 1', [id], function (err, result) {
             //call `done(err)` to release the client back to the pool (or destroy it if there is an error)
             done(err);
 
@@ -26,7 +27,7 @@ app.get('/', function (req, res) {
                 res.send(500).end();
             }
 
-            res.send(`Employee ID: ${result.rows[0].id}, Name: ${result.rows[0].name}, Age: ${result.rows[0].age}`);
+            res.json(result.rows[0])
         });
     });
 });
