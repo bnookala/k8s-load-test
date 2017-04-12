@@ -27,7 +27,10 @@ app.get('/', function (req, res) {
                 res.send(500).end();
             }
 
-            res.json(result.rows[0])
+            let row = result.rows[0];
+            row.host = process.env.HOSTNAME;
+
+            res.json(row);
         });
     });
 });
