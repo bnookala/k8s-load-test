@@ -19,5 +19,8 @@
   "dependencies": {
     "express": "^4.15.2",
     "pg": "^6.1.5"
+  },
+  "devDependencies": {
+    "api-benchmark": "^0.4.2"
   }
 }
